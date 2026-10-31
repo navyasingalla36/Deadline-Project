@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Deadline Radar - Create Account</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    #164e63 0%,
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 90% 90%,
+                    #172554 0%,
+                    transparent 35%
+                ),
+                #07111f;
+
+            color: white;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        /* Brand */
+
+        .brand {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo {
+            width: 70px;
+            height: 70px;
+
+            margin: 0 auto 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 20px;
+
+            background: #0ea5e9;
+
+            font-size: 34px;
+
+            box-shadow:
+                0 12px 35px rgba(14, 165, 233, 0.30);
+        }
+
+        .brand h1 {
+            font-size: 30px;
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+        .brand p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* Card */
+
+        .card {
+            width: 100%;
+
+            padding: 32px;
+
+            background: rgba(15, 30, 48, 0.96);
+
+            border: 1px solid rgba(148, 163, 184, 0.15);
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.40);
+
+            backdrop-filter: blur(10px);
+        }
+
+        .card h2 {
+            font-size: 23px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        /* Form */
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #cbd5e1;
+
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border-radius: 10px;
+
+            border: 1px solid #334155;
+
+            background: #0b1b2d;
+
+            color: white;
+
+            font-size: 15px;
+
+            outline: none;
+
+            transition: all 0.2s ease;
+        }
+
+        input::placeholder {
+            color: #64748b;
+        }
+
+        input:focus {
+            border-color: #0ea5e9;
+
+            box-shadow:
+                0 0 0 3px rgba(14, 165, 233, 0.12);
+        }
+
+        /* Password hint */
+
+        .password-hint {
+            margin-top: 7px;
+
+            color: #64748b;
+
+            font-size: 12px;
+        }
+
+        /* Register button */
+
+        .register-btn {
+            width: 100%;
+
+            padding: 14px;
+
+            margin-top: 5px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #0ea5e9;
+
+            color: white;
+
+            font-size: 16px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: all 0.2s ease;
+        }
+
+        .register-btn:hover {
+            background: #0284c7;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 8px 20px rgba(14, 165, 233, 0.25);
+        }
+
+        .register-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Login link */
+
+        .login-link {
+            text-align: center;
+
+            margin-top: 22px;
+
+            color: #94a3b8;
+
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #38bdf8;
+
+            text-decoration: none;
+
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+
+        .footer {
+            text-align: center;
+
+            margin-top: 22px;
+
+            color: #64748b;
+
+            font-size: 12px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 480px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .card {
+                padding: 25px 20px;
+            }
+
+            .brand h1 {
+                font-size: 26px;
+            }
+
+            .logo {
+                width: 62px;
+                height: 62px;
+                font-size: 30px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="container">
+
+
+        <!-- Brand -->
+
+        <div class="brand">
+
+            <div class="logo">
+                ⏰
+            </div>
+
+            <h1>
+                Deadline Radar
+            </h1>
+
+            <p>
+                Smart Deadline Management System
+            </p>
+
+        </div>
+
+
+        <!-- Registration Card -->
+
+        <div class="card">
+
+            <h2>
+                Create Your Account
+            </h2>
+
+            <p class="subtitle">
+                Start managing your deadlines smarter and stay ahead.
+            </p>
+
+
+            <!-- IMPORTANT:
+                 Keep action="register"
+                 Keep method="post"
+            -->
+
+            <form action="register"
+                  method="post"
+                  onsubmit="return validateForm()">
+
+
+                <!-- Name -->
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your name"
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create a password"
+                        autocomplete="new-password"
+                        minlength="6"
+                        required
+                    >
+
+                    <div class="password-hint">
+                        Use at least 6 characters.
+                    </div>
+
+                </div>
+
+
+                <!-- Confirm Password -->
+
+                <div class="form-group">
+
+                    <label for="confirmPassword">
+                        Confirm Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Re-enter your password"
+                        autocomplete="new-password"
+                        minlength="6"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Register -->
+
+                <button
+                    type="submit"
+                    class="register-btn">
+
+                    Create Account
+
+                </button>
+
+            </form>
+
+
+            <!-- Login -->
+
+            <div class="login-link">
+
+                Already have an account?
+
+                <a href="login.html">
+                    Login
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Footer -->
+
+        <div class="footer">
+
+            Deadline Radar • Stay Ahead of Every Deadline
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function validateForm() {
+
+            const password =
+                document.getElementById("password").value;
+
+            const confirmPassword =
+                document.getElementById("confirmPassword").value;
+
+
+            if (password.length < 6) {
+
+                alert(
+                    "Password must contain at least 6 characters."
+                );
+
+                return false;
+            }
+
+
+            if (password !== confirmPassword) {
+
+                alert(
+                    "Passwords do not match."
+                );
+
+                return false;
+            }
+
+
+            return true;
+        }
+
+    </script>
+
+</body>
+
+</html>

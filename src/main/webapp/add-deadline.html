@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Deadline | Deadline Radar</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background:
+                radial-gradient(circle at top left,
+                    rgba(34, 211, 238, 0.10),
+                    transparent 35%),
+                radial-gradient(circle at bottom right,
+                    rgba(37, 99, 235, 0.10),
+                    transparent 35%),
+                #07111f;
+            color: #e5f2ff;
+            min-height: 100vh;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            height: 72px;
+            padding: 0 5%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: rgba(7, 17, 31, 0.88);
+            backdrop-filter: blur(16px);
+
+            border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 21px;
+            font-weight: 800;
+            color: #22d3ee;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .brand-icon {
+            font-size: 25px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #9fb3c8;
+
+            padding: 10px 15px;
+            border-radius: 10px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background: rgba(34, 211, 238, 0.08);
+        }
+
+        .nav-links a.active {
+            color: #22d3ee;
+            background: rgba(34, 211, 238, 0.12);
+        }
+
+        .logout {
+            color: #f87171 !important;
+        }
+
+        .logout:hover {
+            background: rgba(248, 113, 113, 0.10) !important;
+        }
+
+        /* ================= MAIN ================= */
+
+        .container {
+            width: min(1100px, 92%);
+            margin: 0 auto;
+            padding: 45px 0 70px;
+        }
+
+        .hero {
+            margin-bottom: 28px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 7px 13px;
+            border-radius: 999px;
+
+            background: rgba(34, 211, 238, 0.09);
+            border: 1px solid rgba(34, 211, 238, 0.20);
+
+            color: #67e8f9;
+            font-size: 12px;
+            font-weight: 700;
+
+            margin-bottom: 14px;
+        }
+
+        .hero h1 {
+            font-size: clamp(28px, 4vw, 40px);
+            margin-bottom: 9px;
+            color: #f1f8ff;
+        }
+
+        .hero p {
+            color: #8ea5bb;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* ================= LAYOUT ================= */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 300px;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .card {
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(15, 34, 58, 0.97),
+                    rgba(9, 24, 42, 0.97)
+                );
+
+            border: 1px solid rgba(148, 163, 184, 0.13);
+            border-radius: 18px;
+
+            box-shadow:
+                0 18px 45px rgba(0, 0, 0, 0.24),
+                inset 0 1px 0 rgba(255, 255, 255, 0.02);
+
+            padding: 28px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 750;
+            color: #f1f8ff;
+            margin-bottom: 5px;
+        }
+
+        .card-subtitle {
+            color: #8198ae;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            color: #c9d9e8;
+            font-size: 13px;
+            font-weight: 650;
+            margin-bottom: 8px;
+        }
+
+        .required {
+            color: #22d3ee;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+
+            background: #09192c;
+            color: #e8f4ff;
+
+            border: 1px solid #203952;
+            border-radius: 10px;
+
+            padding: 12px 13px;
+
+            font-family: inherit;
+            font-size: 14px;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #536b82;
+        }
+
+        input:hover,
+        select:hover,
+        textarea:hover {
+            border-color: #31516d;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #22d3ee;
+
+            box-shadow:
+                0 0 0 3px rgba(34, 211, 238, 0.10);
+
+            background: #0b1e34;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        select option {
+            background: #0b1e34;
+            color: #ffffff;
+        }
+
+        textarea {
+            min-height: 125px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .helper {
+            margin-top: 7px;
+            color: #667f96;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        /* ================= PRIORITY ================= */
+
+        .priority-guide {
+            margin-top: 9px;
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .priority-tag {
+            padding: 5px 9px;
+            border-radius: 7px;
+
+            font-size: 11px;
+            font-weight: 650;
+        }
+
+        .priority-high {
+            color: #fca5a5;
+            background: rgba(248, 113, 113, 0.10);
+            border: 1px solid rgba(248, 113, 113, 0.20);
+        }
+
+        .priority-medium {
+            color: #fcd34d;
+            background: rgba(251, 191, 36, 0.10);
+            border: 1px solid rgba(251, 191, 36, 0.20);
+        }
+
+        .priority-low {
+            color: #86efac;
+            background: rgba(74, 222, 128, 0.10);
+            border: 1px solid rgba(74, 222, 128, 0.20);
+        }
+
+        /* ================= RECURRENCE ================= */
+
+        .recurrence-box {
+            padding: 15px;
+
+            margin-top: 4px;
+
+            border-radius: 11px;
+
+            background: rgba(34, 211, 238, 0.045);
+            border: 1px solid rgba(34, 211, 238, 0.13);
+        }
+
+        .recurrence-info {
+            margin-top: 8px;
+
+            color: #718ba2;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        /* ================= ACTIONS ================= */
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 11px;
+
+            margin-top: 27px;
+            padding-top: 22px;
+
+            border-top: 1px solid rgba(148, 163, 184, 0.10);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+
+            min-width: 125px;
+
+            padding: 11px 17px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.25s ease;
+        }
+
+        .btn-primary {
+            border: 1px solid rgba(34, 211, 238, 0.25);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0891b2,
+                    #2563eb
+                );
+
+            color: #ffffff;
+
+            box-shadow:
+                0 7px 20px rgba(37, 99, 235, 0.20);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 25px rgba(34, 211, 238, 0.24);
+        }
+
+        .btn-secondary {
+            color: #b7c8d8;
+
+            background: rgba(148, 163, 184, 0.07);
+            border: 1px solid rgba(148, 163, 184, 0.14);
+        }
+
+        .btn-secondary:hover {
+            color: #ffffff;
+            background: rgba(148, 163, 184, 0.12);
+        }
+
+        /* ================= SIDE GUIDE ================= */
+
+        .guide-card {
+            padding: 23px;
+        }
+
+        .guide-title {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            font-size: 16px;
+            font-weight: 750;
+
+            color: #f1f8ff;
+
+            margin-bottom: 19px;
+        }
+
+        .guide-item {
+            display: flex;
+            gap: 12px;
+
+            padding: 13px 0;
+
+            border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+        }
+
+        .guide-item:last-child {
+            border-bottom: none;
+        }
+
+        .guide-icon {
+            width: 34px;
+            height: 34px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            background: rgba(34, 211, 238, 0.08);
+            color: #22d3ee;
+        }
+
+        .guide-item h4 {
+            font-size: 13px;
+            color: #dce9f5;
+            margin-bottom: 4px;
+        }
+
+        .guide-item p {
+            font-size: 11px;
+            color: #71899f;
+            line-height: 1.5;
+        }
+
+        .tip-box {
+            margin-top: 18px;
+
+            padding: 13px;
+
+            border-radius: 10px;
+
+            background: rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+
+            color: #9ec4f2;
+
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+
+            color: #536b82;
+            font-size: 11px;
+
+            padding: 20px 0 30px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 850px) {
+
+            .navbar {
+                height: auto;
+                min-height: 70px;
+
+                padding: 12px 4%;
+
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .nav-links {
+                width: 100%;
+
+                overflow-x: auto;
+
+                justify-content: flex-start;
+
+                padding-bottom: 2px;
+            }
+
+            .nav-links a {
+                white-space: nowrap;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .guide-card {
+                order: 2;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .container {
+                width: 94%;
+                padding-top: 30px;
+            }
+
+            .card {
+                padding: 20px;
+                border-radius: 15px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 17px;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+
+            .actions {
+                flex-direction: column-reverse;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 29px;
+            }
+        }
+
+        @media (max-width: 430px) {
+
+            .brand {
+                font-size: 18px;
+            }
+
+            .nav-links a {
+                padding: 8px 11px;
+                font-size: 12px;
+            }
+
+            .hero p {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <a href="dashboard" class="brand">
+            <span class="brand-icon">⏰</span>
+            Deadline Radar
+        </a>
+
+        <div class="nav-links">
+
+            <a href="dashboard">
+                Dashboard
+            </a>
+
+            <a href="viewDeadlines" class="active">
+                Deadlines
+            </a>
+
+            <a href="calendar.html">
+                Calendar
+            </a>
+
+            <a href="analytics.html">
+                Analytics
+            </a>
+
+            <a href="logout" class="logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="container">
+
+        <section class="hero">
+
+            <div class="hero-badge">
+                ✦ Deadline Management
+            </div>
+
+            <h1>Add New Deadline</h1>
+
+            <p>
+                Create a deadline and keep track of your important
+                assignments, tasks, exams, and activities.
+            </p>
+
+        </section>
+
+
+        <div class="content-grid">
+
+
+            <!-- ================= FORM CARD ================= -->
+
+            <section class="card">
+
+                <h2 class="card-title">
+                    Deadline Details
+                </h2>
+
+                <p class="card-subtitle">
+                    Enter the details below to create a new deadline.
+                </p>
+
+
+                <form action="addDeadline"
+                      method="post"
+                      onsubmit="return validateForm()">
+
+                    <div class="form-grid">
+
+
+                        <!-- TITLE -->
+
+                        <div class="form-group full-width">
+
+                            <label for="title">
+                                Deadline Title
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="title"
+                                name="title"
+                                placeholder="e.g. Java Assignment"
+                                maxlength="150"
+                                required>
+
+                            <div class="helper">
+                                Give your deadline a short and meaningful name.
+                            </div>
+
+                        </div>
+
+
+                        <!-- CATEGORY -->
+
+                        <div class="form-group">
+
+                            <label for="category">
+                                Category
+                                <span class="required">*</span>
+                            </label>
+
+                            <select
+                                id="category"
+                                name="category"
+                                required>
+
+                                <option value="">
+                                    Select category
+                                </option>
+
+                                <option value="Assignment">
+                                    Assignment
+                                </option>
+
+                                <option value="Exam">
+                                    Exam
+                                </option>
+
+                                <option value="Project">
+                                    Project
+                                </option>
+
+                                <option value="Meeting">
+                                    Meeting
+                                </option>
+
+                                <option value="Personal">
+                                    Personal
+                                </option>
+
+                                <option value="Other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- PRIORITY -->
+
+                        <div class="form-group">
+
+                            <label for="priority">
+                                Priority
+                                <span class="required">*</span>
+                            </label>
+
+                            <select
+                                id="priority"
+                                name="priority"
+                                required>
+
+                                <option value="">
+                                    Select priority
+                                </option>
+
+                                <option value="High">
+                                    High
+                                </option>
+
+                                <option value="Medium">
+                                    Medium
+                                </option>
+
+                                <option value="Low">
+                                    Low
+                                </option>
+
+                            </select>
+
+                            <div class="priority-guide">
+
+                                <span class="priority-tag priority-high">
+                                    🔴 High
+                                </span>
+
+                                <span class="priority-tag priority-medium">
+                                    🟡 Medium
+                                </span>
+
+                                <span class="priority-tag priority-low">
+                                    🟢 Low
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- DUE DATE -->
+
+                        <div class="form-group">
+
+                            <label for="dueDate">
+                                Due Date
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="date"
+                                id="dueDate"
+                                name="dueDate"
+                                required>
+
+                            <div class="helper">
+                                Select the date by which this task should be completed.
+                            </div>
+
+                        </div>
+
+
+                        <!-- RECURRENCE -->
+
+                        <div class="form-group">
+
+                            <label for="recurrence">
+                                Recurrence
+                            </label>
+
+                            <div class="recurrence-box">
+
+                                <select
+                                    id="recurrence"
+                                    name="recurrence">
+
+                                    <option value="None">
+                                        None — One-time
+                                    </option>
+
+                                    <option value="Daily">
+                                        Daily
+                                    </option>
+
+                                    <option value="Weekly">
+                                        Weekly
+                                    </option>
+
+                                    <option value="Monthly">
+                                        Monthly
+                                    </option>
+
+                                </select>
+
+                                <div class="recurrence-info">
+                                    ↻ When a recurring deadline is completed,
+                                    the next occurrence will be created automatically.
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- DESCRIPTION -->
+
+                        <div class="form-group full-width">
+
+                            <label for="description">
+                                Description
+                            </label>
+
+                            <textarea
+                                id="description"
+                                name="description"
+                                maxlength="500"
+                                placeholder="Add additional details about this deadline..."></textarea>
+
+                            <div class="helper">
+                                Optional. Maximum 500 characters.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACTIONS -->
+
+                    <div class="actions">
+
+                        <a
+                            href="viewDeadlines"
+                            class="btn btn-secondary">
+                            ← Cancel
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary">
+                            ✓ Add Deadline
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+            <!-- ================= GUIDE ================= -->
+
+            <aside class="card guide-card">
+
+                <h3 class="guide-title">
+                    💡 Quick Guide
+                </h3>
+
+
+                <div class="guide-item">
+
+                    <div class="guide-icon">
+                        📝
+                    </div>
+
+                    <div>
+                        <h4>Use clear titles</h4>
+
+                        <p>
+                            Keep deadline names short so they are
+                            easy to recognize on your dashboard.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="guide-item">
+
+                    <div class="guide-icon">
+                        🎯
+                    </div>
+
+                    <div>
+                        <h4>Choose priority</h4>
+
+                        <p>
+                            Mark important or urgent tasks as
+                            High priority.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="guide-item">
+
+                    <div class="guide-icon">
+                        📅
+                    </div>
+
+                    <div>
+                        <h4>Set the due date</h4>
+
+                        <p>
+                            Choose the date when the task needs
+                            to be completed.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="guide-item">
+
+                    <div class="guide-icon">
+                        🔄
+                    </div>
+
+                    <div>
+                        <h4>Use recurrence</h4>
+
+                        <p>
+                            For repeated tasks, choose Daily,
+                            Weekly, or Monthly.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="guide-item">
+
+                    <div class="guide-icon">
+                        💬
+                    </div>
+
+                    <div>
+                        <h4>Add useful notes</h4>
+
+                        <p>
+                            Use the description field for
+                            instructions or additional information.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="tip-box">
+                    <strong>💡 Tip:</strong>
+                    Once a deadline is created, you can view,
+                    edit, complete, or delete it from the
+                    Deadlines section.
+                </div>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+        Deadline Radar • Smart Deadline Management System
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        /* Set minimum due date to today */
+
+        const today = new Date();
+
+        const year = today.getFullYear();
+
+        const month = String(
+            today.getMonth() + 1
+        ).padStart(2, "0");
+
+        const day = String(
+            today.getDate()
+        ).padStart(2, "0");
+
+        const todayString =
+            `${year}-${month}-${day}`;
+
+        document
+            .getElementById("dueDate")
+            .setAttribute("min", todayString);
+
+
+        /* Form validation */
+
+        function validateForm() {
+
+            const title =
+                document
+                    .getElementById("title")
+                    .value
+                    .trim();
+
+            const category =
+                document
+                    .getElementById("category")
+                    .value;
+
+            const priority =
+                document
+                    .getElementById("priority")
+                    .value;
+
+            const dueDate =
+                document
+                    .getElementById("dueDate")
+                    .value;
+
+
+            if (title.length === 0) {
+
+                alert("Please enter a deadline title.");
+
+                document
+                    .getElementById("title")
+                    .focus();
+
+                return false;
+            }
+
+
+            if (category === "") {
+
+                alert("Please select a category.");
+
+                document
+                    .getElementById("category")
+                    .focus();
+
+                return false;
+            }
+
+
+            if (priority === "") {
+
+                alert("Please select a priority.");
+
+                document
+                    .getElementById("priority")
+                    .focus();
+
+                return false;
+            }
+
+
+            if (dueDate === "") {
+
+                alert("Please select a due date.");
+
+                document
+                    .getElementById("dueDate")
+                    .focus();
+
+                return false;
+            }
+
+
+            if (dueDate < todayString) {
+
+                alert(
+                    "Due date cannot be earlier than today."
+                );
+
+                document
+                    .getElementById("dueDate")
+                    .focus();
+
+                return false;
+            }
+
+
+            return true;
+        }
+
+    </script>
+
+</body>
+</html>
